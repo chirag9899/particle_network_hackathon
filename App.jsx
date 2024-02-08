@@ -33,6 +33,8 @@ import {
   ParticleConnectConfig,
   WalletType,
 } from '@particle-network/rn-connect';
+import BigNumber from 'bignumber.js';
+
 import { getSepoliaTestnetTransaction, getSolanaTransaction, getEthereumTransacion} from './utils/helper';
 import { PNAccount } from './PNAccount';
 import * as particleConnect from '@particle-network/rn-connect';
@@ -114,7 +116,8 @@ export async function openWallet() {
 }
 
 async function sendTransaction() {
-  const transaction = await getEthereumTransacion(pnaccount.publicAddress, "0x8962752Cea41a6fad429372398c947B7F2002085", "1");
+  const amount = "10000000000";
+  const transaction = await getEthereumTransacion(pnaccount.publicAddress, "0x8962752Cea41a6fad429372398c947B7F2002085",  BigNumber(amount));  
   console.log(transaction);
   const publicAddress = pnaccount.publicAddress;
   const result = await particleConnect.signAndSendTransaction(WalletType.Particle, publicAddress, transaction);
